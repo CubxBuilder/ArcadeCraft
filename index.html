@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="de-de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArcadeCraft</title>
+  <link rel="icon" href="icon.png">
+  <style>
+    * {
+      user-select: none;
+      font-family: 'Alfa Slab One', cursive;
+      overflow-x: hidden;
+    }
+
+    body {
+      background-color: #143232;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0;
+      height: 60px;
+      background-color: #143232;
+    }
+    header #logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    header img {
+      width: 60px;
+      height: 60px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    #main-nav {
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+    }
+
+    .nav-button {
+      background-color: #143232;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 12px;
+    }
+
+    .nav-button:hover {
+      background-color: #153D3D;
+      color: white;
+      border: none;
+      border-radius: 12px
+    }
+    .nav-button:active {
+      background-color: #1A4F4F;
+      color: white;
+      border: none;
+    }
+    .nav-button.at {
+      background-color: #153D3D;
+      color: white;
+      border: none
+    }
+    main {
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+      width: 100%;
+    }
+
+    .page {
+      display: none;
+      width: 100%;
+      height: 100%;
+      background-color: #112929;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    #home-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 60px);
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: url('background_vorlage.png') no-repeat center center;
+
+    }
+
+    #home-header h2 {
+      font-size: 36px;
+      margin: 0;
+      padding: 0;
+    }
+
+    #chapter-select {
+      height: 30px;
+      width: calc(100vw - 80px);
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    #vote {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      height: 100%
+    }
+    #vote-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    #vote-links h2 {
+      font-size: 36px;
+      margin: 0;
+      padding: 0;
+    }
+
+    #vote-links p {
+      font-size: 18px;
+      margin: 0;
+      padding: 0;
+
+    }
+
+    #vote-links button {
+      background-color: #143232;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 12px;
+    }
+
+    #vote-links button:hover {
+      background-color: #153D3D;
+      color: white;
+      border: none;
+      border-radius: 12px
+    }
+
+    #vote-features {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+
+    }
+
+    #vote-features h2 {
+      font-size: 36px;
+      margin: 0;
+      padding: 0;
+    }
+
+    #settings {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    #settings h2 {
+      font-size: 36px;
+      margin: 0;
+      padding: 0;
+    }
+
+    #settings label {
+      font-size: 18px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: #2196F3;
+    }
+
+    input:focus+.slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%
+    }
+
+    #vote {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    footer{
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      width: 100%;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    footer p {
+      margin-right: 10px;
+      font-size: 12px;
+    }
+    footer a{
+      color: #CCFDFF;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="logo">
+      <img src="icon.png" alt="ArcadeCraft Logo" />
+      <h1>rcadeCraft</h1>
+    </div>
+    <nav id="main-nav">
+      <button class="nav-button" data-page="home">HOME</button>
+      <button class="nav-button" data-page="vote">VOTE</button>
+      <button class="nav-button" data-page="regeln">REGELN</button>
+      <button class="nav-button" data-page="wiki">WIKI</button>
+    </nav>
+  </header>
+  <main>
+    <div id="home" class="page">
+      <div id="home-header">
+        <h2>Willkommen auf ArcadeCraft!</h2>
+      </div>
+      <select class="chapter-select">
+        <option value="chapter1">Chapter 1</option>
+        <option value="chapter2">Chapter 2</option>
+        <option value="chapter3">Chapter 3</option>
+        <option value="chapter4">Chapter 4</option>
+        <option value="chapter5">Chapter 5</option>
+      </select>
+
+      <h2>Überschrift</h2>
+      <h4 id="chapter1">Chapter 1</h4>
+      <p>Text</p>
+      <h4 id="chapter2">Chapter 2</h4>
+      <p>Text</p>
+      <h4 id="chapter3">Chapter 3</h4>
+      <p>Text</p>
+      <h4 id="chapter4">Chapter 4</h4>
+      <p>Text</p>
+      <h4 id="chapter5">Chapter 5</h4>
+      <p>Text</p>
+    </div>
+    <div id="vote" class="page">
+      <div id="vote-links">
+        <h2>VOTE</h2>
+        <p>Text</p>
+        <button id="vote-button1" onclick="window.location.href=''">Vote 1</button>
+        <button id="vote-button2" onclick="window.location.href=''">Vote 2</button>
+        <p>Schreibe einen . vor deinen Namen, wenn du Bedrock-Spieler bist!</p>
+      </div>
+      <div id="vote-features">
+        <h2>Belohnungen</h2>
+          <p>Text</p>
+          <p>Text</p>
+          <p>Text</p>
+          <p>Text</p>
+          <p>Text</p>
+      </div>
+    </div>
+    <div id="regeln" class="page">
+      <select class="chapter-select">
+        <option value="chapter1">Chapter 1</option>
+        <option value="chapter2">Chapter 2</option>
+        <option value="chapter3">Chapter 3</option>
+        <option value="chapter4">Chapter 4</option>
+        <option value="chapter5">Chapter 5</option>
+      </select>
+
+      <h2>REGELN</h2>
+      <h4 id="chapter1">Chapter 1</h4>
+      <p>Text</p>
+      <h4 id="chapter2">Chapter 2</h4>
+      <p>Text</p>
+      <h4 id="chapter3">Chapter 3</h4>
+      <p>Text</p>
+      <h4 id="chapter4">Chapter 4</h4>
+      <p>Text</p>
+      <h4 id="chapter5">Chapter 5</h4>
+      <p>Text</p>
+    </div>
+    <div id="wiki" class="page">
+      <iframe src=""></iframe>
+    </div>
+  </main>
+  <footer>
+    <p>© 2025 ArcadeCraft. Alle Rechte vorbehalten.</p>
+    <p>Created by <a href="https://lehradt.github.io/profile/">Fabian Lehradt</a></p>
+  </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const pages = document.querySelectorAll(".page")
+
+      function showPage(id) {
+        pages.forEach(p => p.style.display = "none")
+        document.getElementById(id).style.display = "block"
+        document.querySelectorAll(".nav-button").forEach(b => b.classList.remove("active"))
+      }
+
+      document.querySelector("button[data-page='home']").onclick = () => showPage("home")
+      document.querySelector("button[data-page='vote']").onclick = () => showPage("vote")
+      document.querySelector("button[data-page='regeln']").onclick = () => showPage("regeln")
+      document.querySelector("button[data-page='wiki']").onclick = () => showPage("wiki")
+      showPage("home")
+
+      document.querySelectorAll(".chapter-select").forEach(select => {
+        select.addEventListener("change", function () {
+          const target = document.getElementById(this.value)
+          if (target) target.scrollIntoView({behavior: "smooth"})
+        })
+      })
+    })
+  </script>
+
+</body>
+
+</html>
